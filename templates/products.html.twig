@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des produits{% endblock %}
+
+{% block body %}
+    <div class="flex min-h-screen bg-blue-500 text-white">
+
+    <div class="flex flex-col w-64 bg-blue-800 p-4 border-r-2 border-black shadow-lg">
+        <h2 class="text-2xl font-semibold text-center text-white mb-6">Menu</h2>
+        <ul class="space-y-4">
+            <li class="border-t-2 border-white w-1/2 mx-auto mb-4">
+                <a href="{{ path('home') }}" class="block py-2 px-4 text-white hover:bg-blue-700 rounded-lg">Accueil</a>
+            </li>
+            <li class="border-t-2 border-white w-1/2 mx-auto mb-4">
+                <a href="{{ path('users') }}" class="block py-2 px-4 text-white hover:bg-blue-700 rounded-lg">Utilisateurs</a>
+            </li>
+            <li class="border-t-2 border-white w-1/2 mx-auto mb-4">
+                <a href="{{ path('customers') }}" class="block py-2 px-4 text-white hover:bg-blue-700 rounded-lg">Clients</a>
+            </li>
+        </ul>
+        <div class="mt-auto">
+            <a href="{{ path('app_logout') }}" class="block py-2 px-4 text-white hover:bg-blue-700 rounded-lg mt-4">Déconnexion</a>
+        </div>
+    </div>
+
+    <div class="flex-grow p-8">
+        <h1 class="text-4xl font-bold text-center text-white mb-8">Liste des produits</h1>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+            <table class="min-w-full table-auto">
+                <thead>
+                    <tr class="bg-blue-800 text-white">
+                        <th class="px-4 py-2 text-left">Nom</th>
+                        <th class="px-4 py-2 text-left">Description</th>
+                        <th class="px-4 py-2 text-left">Prix</th>
+                        <th class="px-4 py-2 text-left">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                        <tr class="border-b">
+                            <td class="px-4 py-2 text-black">{{ product.name }}</td>
+                            <td class="px-4 py-2 text-black">{{ product.description }}</td>
+                            <td class="px-4 py-2 text-black">{{ product.price | number_format(2, ',', ' ') }} €</td>
+                            <td class="px-4 py-2">
+                                <a href="{{ path('edit_product', {'id': product.id}) }}" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Modifier</a>
+                                <a href="{{ path('delete_product', {'id': product.id}) }}" class="inline-block bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 ml-2" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')">Supprimer</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mt-6 flex justify-center space-x-4">
+        
+        <a href="{{ path('add_product') }}" class="inline-block bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700">Ajouter un produit</a>
+
+            <a href="{{ path('products_sorted_desc') }}" class="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700">
+                Trier par prix décroissant
+            </a>
+
+            {% if sorted is defined and sorted %}
+                <a href="{{ path('products') }}" class="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700">
+                    Réinitialiser
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste Utilisateurs{% endblock %}
+
+{% block body %}
+<div class="flex min-h-screen bg-blue-500 text-white">
+
+    <div class="flex flex-col w-64 bg-blue-800 p-4 border-r-2 border-black shadow-lg">
+        <h2 class="text-2xl font-semibold text-center text-white mb-6">Menu</h2>
+        <ul class="space-y-4">
+            <li class="border-t-2 border-white w-1/2 mx-auto mb-4">
+                <a href="{{ path('home') }}" class="block py-2 px-4 text-white hover:bg-blue-700 rounded-lg">Accueil</a>
+            </li>
+            <li class="border-t-2 border-white w-1/2 mx-auto mb-4">
+                <a href="{{ path('products') }}" class="block py-2 px-4 text-white hover:bg-blue-700 rounded-lg">Produits</a>
+            </li>
+            {# {% if is_granted('view_customers') %} #}
+            <li class="border-t-2 border-white w-1/2 mx-auto mb-4">
+                <a href="{{ path('customers') }}" class="block py-2 px-4 text-white hover:bg-blue-700 rounded-lg">Clients</a>
+            </li>
+            {#{% endif %}#}
+        </ul>
+        <div class="mt-auto">
+            <a href="{{ path('app_logout') }}" class="block py-2 px-4 text-white hover:bg-blue-700 rounded-lg mt-4">Déconnexion</a>
+        </div>
+    </div>
+
+    <div class="flex-grow p-8">
+  
+        <h1 class="text-4xl font-bold text-center text-white mb-8">Liste des utilisateurs</h1>
+        
+   
+        <div class="overflow-x-auto bg-white p-4 rounded-lg shadow-lg">
+            <table class="min-w-full table-auto">
+                <thead>
+                    <tr class="bg-blue-800 text-white">
+                        <th class="px-4 py-2 text-left">Prénom</th>
+                        <th class="px-4 py-2 text-left">Nom</th>
+                        <th class="px-4 py-2 text-left">Email</th>
+                        <th class="px-4 py-2 text-left">Rôles</th>
+                        <th class="px-4 py-2 text-left">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr class="border-b">
+                            <td class="px-4 py-2 text-black">{{ user.firstname }}</td>
+                            <td class="px-4 py-2 text-black">{{ user.lastname }}</td>
+                            <td class="px-4 py-2 text-black">{{ user.email }}</td>
+                            <td class="px-4 py-2 text-black">
+                                {% if 'ROLE_ADMIN' in user.roles %}
+                                    Administrateur
+                                {% elseif 'ROLE_MANAGER' in user.roles %}
+                                    Gestionnaire
+                                {% elseif 'ROLE_USER' in user.roles %}
+                                    Utilisateur
+                                {% else %}
+                                    {{ user.roles | join(', ') }}
+                                {% endif %}
+                            </td>
+                            <td class="px-4 py-2">
+                                <a href="{{ path('edit_user', {'id': user.id}) }}" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Modifier</a>
+                                <a href="{{ path('delete_user', {'id': user.id}) }}" class="inline-block bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 ml-2" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')">Supprimer</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mt-6 text-center">
+            <a href="{{ path('add_user') }}" class="inline-block bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700">Ajouter un utilisateur</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

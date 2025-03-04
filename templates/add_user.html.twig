@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un nouvel utilisateur{% endblock %}
+
+{% block body %}
+<div class="flex min-h-screen bg-blue-500 text-white">
+
+    <div class="flex flex-col w-64 bg-blue-800 p-4 border-r-2 border-black shadow-lg">
+        <h2 class="text-2xl font-semibold text-center text-white mb-6">Menu</h2>
+        <ul class="space-y-4">
+            <li class="border-t-2 border-white w-1/2 mx-auto mb-4">
+                <a href="{{ path('home') }}" class="block py-2 px-4 text-white hover:bg-blue-700 rounded-lg">Accueil</a>
+            </li>
+             {# {% if is_granted('view_users') %} #}
+    <li class="border-t-2 border-white w-1/2 mx-auto mb-4">
+        <a href="{{ path('users') }}" class="block py-2 px-4 text-white hover:bg-blue-700 rounded-lg">Utilisateurs</a>
+    </li>
+{#{% endif %}#}
+            <li class="border-t-2 border-white w-1/2 mx-auto mb-4">
+                <a href="{{ path('products') }}" class="block py-2 px-4 text-white hover:bg-blue-700 rounded-lg">Produits</a>
+            </li>
+            {# {% if is_granted('view_customers') %} #}
+            <li class="border-t-2 border-white w-1/2 mx-auto mb-4">
+                <a href="{{ path('customers') }}" class="block py-2 px-4 text-white hover:bg-blue-700 rounded-lg">Clients</a>
+            </li>
+            {#{% endif %}#}
+        </ul>
+        <div class="mt-auto">
+            <a href="{{ path('app_logout') }}" class="block py-2 px-4 text-white hover:bg-blue-700 rounded-lg mt-4">Déconnexion</a>
+        </div>
+    </div>
+
+    <div class="flex-grow p-8">
+
+        <h1 class="text-4xl font-bold text-center text-white mb-8">Ajouter un nouvel utilisateur</h1>
+
+
+        <div class="bg-white p-6 rounded-lg shadow-lg text-black">
+            {{ form_start(form) }}
+            
+            <div class="mb-4">
+                <label for="firstname" class="block text-lg font-medium text-gray-700">Prénom</label>
+                {{ form_widget(form.firstname, {'attr': {'class': 'mt-1 block w-full p-2 border border-gray-300 rounded-md'}}) }}
+            </div>
+            
+            <div class="mb-4">
+                <label for="lastname" class="block text-lg font-medium text-gray-700">Nom</label>
+                {{ form_widget(form.lastname, {'attr': {'class': 'mt-1 block w-full p-2 border border-gray-300 rounded-md'}}) }}
+            </div>
+            
+            <div class="mb-4">
+                <label for="email" class="block text-lg font-medium text-gray-700">Email</label>
+                {{ form_widget(form.email, {'attr': {'class': 'mt-1 block w-full p-2 border border-gray-300 rounded-md'}}) }}
+            </div>
+
+            <div class="mb-4">
+                <label for="password" class="block text-lg font-medium text-gray-700">Mot de passe</label>
+                {{ form_widget(form.password, {'attr': {'class': 'mt-1 block w-full p-2 border border-gray-300 rounded-md'}}) }}
+            </div>
+
+            <div class="mb-6">
+                <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700">Ajouter</button>
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+
+        <!-- Lien retour à la liste des utilisateurs -->
+        <div class="mt-6 text-center">
+            <a href="{{ path('users') }}" class="inline-block bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700">Retour à la liste</a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

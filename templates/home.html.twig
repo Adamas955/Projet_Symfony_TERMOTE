@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+<div class="flex min-h-screen bg-blue-500 text-white">
+    <div class="flex flex-col w-64 bg-blue-800 p-4 border-r-2 border-black shadow-lg">
+        <h2 class="text-2xl font-semibold text-center text-white mb-6">Menu</h2>
+        <ul class="space-y-4">
+           
+    {# {% if is_granted('view_users') %} #}
+    <li class="border-t-2 border-white w-1/2 mx-auto mb-4">
+        <a href="{{ path('users') }}" class="block py-2 px-4 text-white hover:bg-blue-700 rounded-lg">Utilisateurs</a>
+    </li>
+{#{% endif %}#}
+
+            <li class="border-t-2 border-white w-1/2 mx-auto mb-4">
+                <a href="{{ path('products') }}" class="block py-2 px-4 text-white hover:bg-blue-700 rounded-lg">Produits</a>
+            </li>
+            {# {% if is_granted('view_customers') %} #}
+            <li class="border-t-2 border-white w-1/2 mx-auto mb-4">
+                <a href="{{ path('customers') }}" class="block py-2 px-4 text-white hover:bg-blue-700 rounded-lg">Clients</a>
+            </li>
+            {#{% endif %}#}
+        </ul>
+        <div class="mt-auto">
+            <a href="{{ path('app_logout') }}" class="block py-2 px-4 text-white hover:bg-blue-700 rounded-lg mt-4">Déconnexion</a>
+        </div>
+    </div>
+
+    <div class="flex-1 flex justify-center items-center bg-blue-500 px-12">
+        <div class="text-center">
+
+            <img src="https://logos-world.net/wp-content/uploads/2020/11/Olympique-de-Marseille-Logo-1990-1993.png" alt="Logo Olympique de Marseille" class="mx-auto mb-6 w-48 h-auto">
+            <h1 class="text-4xl font-bold mb-4 text-white">Bienvenue sur notre site de vente de maillots de l'OM</h1>
+            <p class="text-xl mb-4 text-white">Retrouvez les meilleurs maillots de l'OM pour soutenir votre équipe préférée ! Des articles exclusifs et une qualité exceptionnelle à chaque achat.</p>
+            <p class="text-2xl font-semibold text-white">Allez l'OM !</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
